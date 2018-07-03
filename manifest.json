@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "GCP outdated docs checker",
+  "description": "Check outdated docs of GCP",
+  "author": "Yuki Furuyama",
+  "version": "1.0",
+  "icons": {
+    "16": "icon/icon_16x16.png",
+    "48": "icon/icon_48x48.png",
+    "128": "icon/icon_128x128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://cloud.google.com/*"
+      ],
+      "js": ["main.js"]
+    }
+  ],
+  "permissions": []
+}
