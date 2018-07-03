@@ -12,7 +12,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://cloud.google.com/*"
+        "https://cloud.google.com/*",
+        "https://firebase.google.com/*"
       ],
       "js": ["main.js"]
     }

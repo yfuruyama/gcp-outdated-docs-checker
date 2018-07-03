@@ -1,8 +1,12 @@
 const ORIGINAL_DOC_LANG = 'en';
 
-function fetchOriginalDoc(url) {
+function constructOriginalDocUrl(url) {
   const base = url.split('?')[0];
-  const originalUrl = base + '?hl=' + ORIGINAL_DOC_LANG;
+  return base + '?hl=' + ORIGINAL_DOC_LANG;
+}
+
+function fetchOriginalDoc(url) {
+  const originalUrl = constructOriginalDocUrl(url);
   return fetch(originalUrl)
     .then(res => res.text())
     .then(text => new DOMParser().parseFromString(text, "text/html"));
@@ -17,8 +21,22 @@ function extractLastUpdated(doc) {
   }
 }
 
-function alertOutdated(doc, currentLastUpdated, originalLastUpdated) {
-  alert('outdated!: ' + currentLastUpdated + " " + originalLastUpdated);
+function alertOutdated(currentLastUpdated, originalLastUpdated, originalDocUrl) {
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const currentDate = `${monthNames[currentLastUpdated.getMonth()]} ${currentLastUpdated.getDate()}, ${currentLastUpdated.getFullYear()}`;
+  const originalDate = `${monthNames[originalLastUpdated.getMonth()]} ${originalLastUpdated.getDate()}, ${originalLastUpdated.getFullYear()}`;
+  const template = `
+    <div style="width: 210px; height: 85px; background-color: red; color: white; padding: 10px; font-size: 14px; position: fixed; bottom: 5px; right: 0px; z-index: 99999999;">
+      <span style="font-weight: bold;">Warning</span>: outdated document
+      <div style="padding: 5px 0px 0px 0px; line-height: 1.3">
+        current: ${currentDate}.<br/>
+        <a href="${originalDocUrl}" target="_blank" style="color: white; text-decoration: underline;">original</a>: ${originalDate}.
+      </div>
+    </div>
+  `;
+  var div = document.createElement( "div" );
+  div.innerHTML = template;
+  document.body.appendChild(div);
 }
 
 (function() {
@@ -35,7 +53,7 @@ function alertOutdated(doc, currentLastUpdated, originalLastUpdated) {
     }
 
     if (currentLastUpdated.getTime() < originalLastUpdated.getTime()) {
-      alertOutdated(document, currentLastUpdated, originalLastUpdated);
+      alertOutdated(currentLastUpdated, originalLastUpdated, constructOriginalDocUrl(url));
     }
   }).catch(e => {
     console.error('failed to fetch original gcp document: ' + e);
