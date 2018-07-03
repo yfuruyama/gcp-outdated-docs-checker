@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "GCP outdated docs checker",
-  "description": "Check outdated docs of GCP",
+  "description": "Check outdated documentations for GCP",
   "author": "Yuki Furuyama",
   "version": "1.0",
   "icons": {

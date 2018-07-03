@@ -44,8 +44,6 @@ function alertOutdated(currentLastUpdated, originalLastUpdated, originalDocUrl) 
   fetchOriginalDoc(url).then(doc => {
     const currentLastUpdated = extractLastUpdated(document);
     const originalLastUpdated = extractLastUpdated(doc);
-    console.log(currentLastUpdated);
-    console.log(originalLastUpdated);
 
     if (!(currentLastUpdated && originalLastUpdated)) {
       console.error('failed to get last updated date');
@@ -58,5 +56,4 @@ function alertOutdated(currentLastUpdated, originalLastUpdated, originalDocUrl) 
   }).catch(e => {
     console.error('failed to fetch original gcp document: ' + e);
   });
-  console.log('end');
 }());
