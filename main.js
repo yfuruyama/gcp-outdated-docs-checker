@@ -29,8 +29,8 @@ function alertOutdated(currentLastUpdated, originalLastUpdated, originalDocUrl) 
     <div style="width: 210px; height: 85px; background-color: red; color: white; padding: 10px; font-size: 14px; position: fixed; bottom: 5px; right: 0px; z-index: 99999999;">
       <span style="font-weight: bold;">Warning</span>: outdated document
       <div style="padding: 5px 0px 0px 0px; line-height: 1.3">
-        current: ${currentDate}.<br/>
-        <a href="${originalDocUrl}" target="_blank" style="color: white; text-decoration: underline;">original</a>: ${originalDate}.
+        This: ${currentDate}.<br/>
+        <a href="${originalDocUrl}" target="_blank" style="color: white; text-decoration: underline;">Original</a>: ${originalDate}.
       </div>
     </div>
   `;
