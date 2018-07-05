@@ -1,5 +1,14 @@
 const ORIGINAL_DOC_LANG = 'en';
 
+function isDocumentPage(doc) {
+  const lastUpdated = extractLastUpdated(doc);
+  if (lastUpdated) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function makeOriginalUrl(url) {
   const base = url.split('?')[0];
   return base + '?hl=' + ORIGINAL_DOC_LANG;
@@ -47,6 +56,10 @@ function alertOutdated(currentUpdated, originalUpdated, originalUrl) {
 }
 
 (function() {
+  if (!isDocumentPage(document)) {
+    return;
+  }
+
   const url = window.location.href;
   fetchOriginalDoc(url).then(doc => {
     const currentUpdated = extractLastUpdated(document);
